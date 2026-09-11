@@ -1,0 +1,37 @@
+h1 購入が完了しました
+h2 ご購入情報
+p.label-info ご購入の詳細な履歴はお支払い頂いた支払い会社のウォレット等をご確認下さい。
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th お支払い合計(税込み)価格
+    tbody
+    - @order.order_products.each_with_index do |op, index|
+      - unless op.coupon_flg
+        tr
+          - op.product_name << "(#{op.size_name}サイズ)" unless op.size_name.nil?
+          td = op.product_name
+          td = "#{op.product_price}円(税込)"
+        tr
+          td 個数
+          td = "#{op.quantity}個"
+      - if index == (@order.order_products.size - 1)
+          tr
+            td 商品計(税込)
+            td = sub_total(@order).to_s + " 円"
+          tr
+            td 内消費税額
+            td = (@order.tax.to_s + " 円")
+          tr
+            td 送料
+            td = (@order.mc_shipping.to_s + " 円")
+          tr
+            td 手数料
+            td = (@order.mc_handling.to_s + " 円")
+          tr
+            td 合計(税込み価格)
+            td = (@order.total_price.to_s + " 円")
+          tr
+            td 内クーポン利用額等
+            td = (@order.discount.to_s + " 円")

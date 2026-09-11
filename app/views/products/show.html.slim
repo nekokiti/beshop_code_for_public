@@ -1,0 +1,54 @@
+h1 Products
+.table-responsive
+  table.table
+    thead
+      tr
+        th scope='col' = I18n.t('activerecord.attributes.product.name')
+        - unless @product.jancode.nil?
+          th scope='col' = I18n.t('activerecord.attributes.product.jancode')
+        th scope='col' = I18n.t('activerecord.attributes.product.description')
+        th scope='col' Url
+        - if @product.has_size
+          - @product.sizes.each do |s|
+            th scope='col' = "在庫(#{s.name})"
+        - else
+          th scope='col' 在庫
+        th scope='col' 価格
+    tbody
+      tr
+        th scope='row' = @product.name
+        - unless @product.jancode.nil?
+          td = @product.jancode
+        td = @product.description
+        td = @product.url
+        - if @product.has_size
+          - @product.size_products.each do |sp|
+            td = "#{sp.quantity}"
+        - else
+          td = @product.quantity
+        td = @product.price
+
+h2 商品画像
+- if !@product.image_path_url(:thumb).nil?
+  div = image_tag @product.image_path_url(:thumb), class: 'img-thumbnail'
+
+h2 商品動画
+- if !@product.movie_path_url(:thumb).nil?
+  div = image_tag @product.movie_path_url(:thumb), class: 'img-thumbnail'
+/h2 Related Stickers
+/.row.flex_box
+  /- @product.sticons.each.with_index(1) do |sticon, index|
+    /- sticon_path = asset_path "#{sticon.sticonpackage.sticoncategory.name}/sticon#{sticon.id}.jpg"
+  /div
+    /img.col-3 src = "#{sticon_path}"
+
+h2 関連タグ
+.container-fluid
+  .row
+    - @product.tags.each do | tag |
+      / p.col-md-2.label.label-default.block.m-1 = tag.tag_name
+      div = link_to tag.tag_name, tag_path(tag), class: ['col-xs-2', 'btn', 'btn-default', 'm-1']
+
+.mt-1
+  = link_to 'Edit', edit_product_path(@product), class: ['btn', 'btn-primary']
+  = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

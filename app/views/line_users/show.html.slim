@@ -1,0 +1,28 @@
+h1 PUSH送信
+p#notice = notice
+h2 お友達情報
+div.bg-info
+  p 商品を選択して送信ボタンを押すと対象のユーザーに商品テンプレートを送信します。(最大10商品まで同時に送ることが出来ます)
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th 宛先のお名前
+    tbody
+      tr
+        td = @res.body["displayName"]
+        / td = #link_to 'PushMessage', line_user_push_path(@line_user.id)
+
+= form_for @push_with_product_form, url: line_user_push_path do |f|
+  .field.form-group
+    = f.label :product_ids
+    .checkbox
+    = f.collection_check_boxes :product_ids, Product.my_products(current_company), :id, :name do |b|
+      = b.label(class: "checkbox-inline") {b.check_box + b.text}
+    = f.hidden_field :id, value: @line_user.id
+
+  button.btn.btn-default type="submit" aria-label="Left Align"
+    span.glyphicon.glyphicon-send aria-hidden="true"
+    '送信
+
+= link_to 'Back', line_users_path, class: ['btn', 'btn-default']

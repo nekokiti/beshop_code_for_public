@@ -1,0 +1,32 @@
+= form_for @pay_pay_info, url: pay_pay_info_path do |f|
+
+  - if @pay_pay_info.errors.any?
+    #error_explanation
+      p = prohibited_message(@pay_pay_info.errors)
+
+      ul.alert-danger
+        - @pay_pay_info.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :client_id, t('activerecord.attributes.pay_pay_info.client_id')
+    = f.text_field :client_id, class: 'form-control'
+
+  .field.form-group
+    = f.label :client_secret, t('activerecord.attributes.pay_pay_info.client_secret')
+    = f.text_field :client_secret, class: 'form-control'
+
+  .field.form-group
+    = f.label :merchant_id, t('activerecord.attributes.pay_pay_info.merchant_id')
+    = f.text_field :merchant_id, class: 'form-control'
+
+  .field.form-group
+    = f.label :enable_flg, t('activerecord.attributes.pay_pay_info.enable_flg'), class: 'checkbox'
+    = f.check_box :enable_flg
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

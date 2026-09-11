@@ -1,0 +1,128 @@
+nav.navbar.navbar-default
+  .navbar-header
+    = image_tag 'lp/logo-01.png', class: 'navbar-brand'
+div.row
+  div.col-xs-12
+    p#summary.lead.text-primary Paidyでお支払いの方は以下をタップしてください。
+  div.col-xs-12
+    = button_tag "Paidyでお支払い", id: "paidy-checkout-button", class: ["btn", "btn-block", "btn-primary", "btn-lg"]
+div.row.m-1
+  figure.col-xs-12
+    = image_tag "https://download.paidy.com/2021Checkout_300x50.png", class: 'img-thumbnail center-block'
+div.row
+  div.col-xs-12
+    ul
+      li クレジットカード不要。
+      li メールアドレスと携帯番号の簡単決済。
+      li 複数回の決済もまとめて翌月10日にお支払いいただけます。
+javascript:
+  $(function(){
+    cart_hash = location.pathname.split("/").filter(e => Boolean(e)).pop();
+    function refused() {
+      var msg = "今回のお支払は承認されませんでした。恐れ入りますが、他の支払方法をお選びください。"
+      msg += "今回、承認とならなかった理由の詳細はお伝えいたしかねますので、ご了承ください。"
+      $('#summary').addClass('text-danger');
+      $('#summary').text(msg);
+    }
+    function getCartInfo(){
+      var deferred = new $.Deferred;
+      $.ajax({
+        type: "POST",
+        url: "/payments/paidy/order_info",
+        data: { "cart_hash" : cart_hash },
+        dataType : "json"
+      }).done(function(data){
+        deferred.resolve(data); // resolve()でpromiseを渡した側のdoneメソッドを呼び出す
+      }).fail(function(data){
+        deferred.reject(data);  // reject()でfailメソッドを呼び出す
+      });
+      return deferred.promise();  // 戻り値はpromiseにする
+    }
+
+    // 利用側
+    getCartInfo().done(function(data){
+      // 非同期処理が成功時の処理
+      var config = {
+        "api_key": data.public_key,
+        "logo_url": "http://www.paidy.com/images/logo.png",
+        "closed": function(callbackData) {
+          console.log(callbackData);
+          $('#paidy-checkout-button').prop('disabled', true);
+          if(callbackData.status == "rejected") {
+            refused();
+          }
+          else {
+            $('#summary').text('お支払い完了画面へリダイレクトしています。そのまま画面を閉じずにお待ち下さい');
+            $.ajax({
+              type: "POST",
+              url: "/payments/paidy/callback_api",
+              data: {
+                "callbackData" : callbackData,
+                "cart_hash": cart_hash
+              },
+              dataType : "json"
+  
+            }).done( function(data){
+              if(data.status == "SUCCESS") {
+                window.location.href = "/payments/complete/" + cart_hash;
+              }
+              else if(data.status == "OUT_OF_INVENTORY") {
+                window.location.href = "/payments/inventory_error/" + cart_hash;
+              }
+            }).fail(function(jqXHR, textStatus, errorThrown){
+              console.log(jqXHR);
+              console.log(textStatus);
+              console.log(errorThrown);
+            });
+          }
+        }
+      };
+      var paidyHandler = Paidy.configure(config);
+      $("#paidy-checkout-button").on('click', paidyPay);
+      function paidyPay() {
+        var payload = data.order_info;
+        /*
+        var payload = {
+          "amount": 10000,
+          "currency": "JPY",
+          "store_name": "ByteRoad株式会社",
+          "buyer": {
+            "email": "leon1999@ivy.ocn.ne.jp",
+            "name1": "小島 直弘",
+            "phone": "09044134915"
+          },
+          "buyer_data": {
+            "user_id": 19,
+            "age": 211,
+            "ltv": 250000,
+            "order_count": 1000,
+            "last_order_amount": 20000,
+            "last_order_at": 20,
+          },
+          "order": {
+            "items": [
+              {
+                "id":37,
+                "quantity":1,
+                "title":"Paidyスニーカー",
+                "unit_price":10000,
+              }
+            ],
+            "order_ref": "88e021674",
+            "shipping": 0,
+            "tax": 0
+          },
+          "shipping_address": {
+            "line1": "六本木4-22-1 AXISビル 10F",
+            "city": "港区",
+            "state": "東京都",
+            "zip": "106-2004"
+          },
+        };
+        */
+        paidyHandler.launch(payload);
+      };
+    }).fail(function(data){
+      // 非同期処理が失敗時の処理
+    });
+  });

@@ -1,0 +1,33 @@
+                                List of relations
+ Schema |          Name           |   Type   |  Owner  |    Size    | Description 
+--------+-------------------------+----------+---------+------------+-------------
+ public | ar_internal_metadata    | table    | naohiro | 16 kB      | 
+ public | cart_products           | table    | naohiro | 8192 bytes | 
+ public | cart_products_id_seq    | sequence | naohiro | 8192 bytes | 
+ public | carts                   | table    | naohiro | 8192 bytes | 
+ public | carts_id_seq            | sequence | naohiro | 8192 bytes | 
+ public | companies               | table    | naohiro | 16 kB      | 
+ public | companies_id_seq        | sequence | naohiro | 8192 bytes | 
+ public | gotten_products         | table    | naohiro | 8192 bytes | 
+ public | gotten_products_id_seq  | sequence | naohiro | 8192 bytes | 
+ public | line_users              | table    | naohiro | 16 kB      | 
+ public | line_users_id_seq       | sequence | naohiro | 8192 bytes | 
+ public | products                | table    | naohiro | 48 kB      | 
+ public | products_id_seq         | sequence | naohiro | 8192 bytes | 
+ public | schema_migrations       | table    | naohiro | 16 kB      | 
+ public | sticon_products         | table    | naohiro | 0 bytes    | 
+ public | sticon_products_id_seq  | sequence | naohiro | 8192 bytes | 
+ public | sticoncategories        | table    | naohiro | 16 kB      | 
+ public | sticoncategories_id_seq | sequence | naohiro | 8192 bytes | 
+ public | sticonpackages          | table    | naohiro | 0 bytes    | 
+ public | sticonpackages_id_seq   | sequence | naohiro | 8192 bytes | 
+ public | sticons                 | table    | naohiro | 0 bytes    | 
+ public | sticons_id_seq          | sequence | naohiro | 8192 bytes | 
+ public | taggings                | table    | naohiro | 40 kB      | 
+ public | taggings_id_seq         | sequence | naohiro | 8192 bytes | 
+ public | tags                    | table    | naohiro | 48 kB      | 
+ public | tags_id_seq             | sequence | naohiro | 8192 bytes | 
+ public | user_keywords           | table    | naohiro | 8192 bytes | 
+ public | user_keywords_id_seq    | sequence | naohiro | 8192 bytes | 
+(28 rows)
+

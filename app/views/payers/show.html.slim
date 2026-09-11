@@ -1,0 +1,31 @@
+h1 Payer
+p#notice = notice
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th 名前
+        th 住所
+        th Email
+    tbody
+      tr
+        td = full_name @payer
+        td = address @payer
+        td = @payer.email
+
+h2 オーダー一覧
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th order
+    tbody
+    - @payer.orders.each do |order|
+      tr
+        td = order.id
+        td = order.updated_at
+        td = link_to '注文詳細', order
+
+.mb-1
+  = link_to 'Edit', edit_payer_path(@payer)
+  = link_to 'Back', payers_path, class: ['btn', 'btn-default', 'ml-1']

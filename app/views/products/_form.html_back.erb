@@ -1,0 +1,83 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :url %>
+    <%= f.text_field :url, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :image_path %>
+    <%= f.text_field :image_path, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :price %>
+    <%= f.number_field :price, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :quantity %>
+    <%= f.number_field :quantity, class: 'form-control' %>
+  </div>
+
+  <div class="field">
+	<%= f.label :sticons %><br />
+    <%= collection_check_boxes(:product, :sticon_ids, Sticon.all, :id, :img_path) do |b| %>
+			<%= b.label(class: "checkbox-inline") {b.check_box} %>
+			<img src="<%= asset_path b.text %>" />
+  <% end %>
+  </div>
+
+	<!--
+  <div class="field">
+  <%#= f.fields_for :tags do |tag_form| %>
+      <%#= f.label :tag_name, "タグ" %>
+      <%#= tag_form.text_field :tag_name %>
+  <%# end %>
+  </div>
+	-->
+
+  <div class="field">
+	<%= f.label :tags %><br />
+    <%= collection_check_boxes(:product, :tag_ids, Tag.all, :id, :tag_name) do |b| %>
+			<%= b.label(class: "checkbox-inline") {b.check_box + b.text} %>
+  <% end %>
+  </div>
+
+  <%# Tag.all.each do |tag| %>
+	  <%# f.fields_for :tag do |tag_form| %>
+	    <%# tag_form.select(:ids, options_from_collection_for_select(Tag.all, :id, :tag_name),{},{multiple: true}) %>
+      <%# f.label "tag_#{tag.id}", tag.tag_name %>
+	    <%# tag_form.check_box "id", {multiple: true}, tag.id, false %>
+	  <%# end %>
+	<%# end %>
+
+  <div class="actions">
+		<% if controller.action_name == 'edit' %>
+	  	<button type="submit" class="btn btn-default">Update Product</button>
+		<% else %>
+	  	<button type="submit" class="btn btn-default">Create Product</button>
+		<% end %>
+  </div>
+<% end %>

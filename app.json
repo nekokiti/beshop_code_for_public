@@ -1,0 +1,51 @@
+{
+  "addons": [
+    "fixie",
+    "heroku-postgresql",
+    "heroku-redis"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "S3_BUCKET": "be-shop-test",
+    "TZ": "Asia/Tokyo",
+    "PAYPAL_IPN": "https://ipnpb.paypal.com/cgi-bin/webscr?cmd=_notify-validate",
+    "FIXIE_URL": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_LOG_TO_STDOUT": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "talk_search",
+  "scripts": {
+    "postdeploy": "bundle exec rails db:schema:load; bundle exec rails db:seed_fu FIXTURE_PATH=db/fixtures/development"
+  },
+  "stack": "heroku-20"
+}

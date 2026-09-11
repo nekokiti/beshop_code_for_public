@@ -1,0 +1,21 @@
+= form_for @shipping, url: shipping_path do |f|
+  - if @shipping.errors.any?
+    #shipping_explanation
+      h2 = "#{pluralize(@shiping.errors.count, "error")} prohibited this shipping from being saved:"
+
+      ul
+        - @shiping.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :shipping_fee
+    = f.number_field :shipping_fee, class: 'form-control'
+    = f.label :extra_fee
+    = f.number_field :extra_fee, class: 'form-control'
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" 編集
+    - else
+      button.btn.btn-primary type="submit" 作成
+    = link_to '戻る', products_path, class: ['btn', 'btn-default', 'ml-1']

@@ -1,0 +1,28 @@
+= form_for @cash_on_delivery_info, url: cash_on_delivery_info_path do |f|
+
+  - if @cash_on_delivery_info.errors.any?
+    #error_explanation
+      p = prohibited_message(@cash_on_delivery_info.errors)
+
+      ul.alert-danger
+        - @cash_on_delivery_info.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :price, t('activerecord.attributes.cash_on_delivery_info.price')
+    = f.number_field :price, class: 'form-control'
+
+  .field.form-group
+    = f.label :alternative_name, t('activerecord.attributes.cash_on_delivery_info.alternative_name')
+    = f.text_field :alternative_name, class: 'form-control'
+
+  .field.form-group
+    = f.label :enable_flg, t('activerecord.attributes.cash_on_delivery_info.enable_flg'), class: 'checkbox'
+    = f.check_box :enable_flg
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

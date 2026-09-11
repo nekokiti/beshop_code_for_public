@@ -1,0 +1,77 @@
+<header>
+<div class="header-inner box_align-center-vh">
+<h1>チャットコマースならBeSHOP</h1>
+</div>
+</header>
+
+<main>
+<div class="main">
+<div class="main-inner">
+
+<div class="section box_info">
+
+<div class="section-inner box_width-full section_bg-image-01">
+<div class="column-02_separate-01">
+<div class="column-inner box_align-center-v ta-c">
+<div class="box_align-center-inner">
+<h2 class="title_size-01"><span class="icon_size-01"><span class="icon-01">LINE</span></span>のトーク画面に<br>ネットショップ開設！</h2>
+<p class="text_large-04">LINEで決済まで完結！<br>チャットコマースなら<br class="new-line-02"><span class="logo-01">BeSHOP</span></p>
+<p class="ta-c"><a class="link_button-10 mainte" href="#anchor-01">現在新規登録を休止しています。<br>再開まで暫くお待ちください。</a></p>
+</div>
+</div>
+<div class="column-inner box_width-exceed-01">
+<div class="box_video-outer image">
+<p><%= image_tag("lp/photo-01_new.png") %></p>
+<div class="box_video">
+<video src="/lp/video/index.mp4" poster="/lp/video/index.jpg" autoplay loop muted playsinline></video>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!--.section-->
+
+</div><!--.main-inner-->
+</div><!--.main-->
+</main>
+
+<footer>
+<div class="box_bg-color-06">
+<div class="footer-inner">
+<div class="column-02_separate-07">
+<div class="column-inner ta-c">
+<p class="image logo-02"><%= image_tag("lp/logo-03.png") %></p>
+<p><strong>ByteRoad株式会社</strong><br>
+HP：<a href="http://byte-road.com">http://byte-road.com</a><br>
+mail：<a href="mailto:info@byte-road.com">info@byte-road.com</a></p>
+</div>
+<div class="column-inner">
+<p>ByteRoadは2014年4月に設立されたITコンテンツの企画・開発を行う会社です。私達はインターネットを通じ、誰もがより簡単に、スマートに経済に参加出来る社会の実現を目指します。</p>
+</div>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+(function ($) {
+  //スムーススクロール
+  $('a[href^="#"]').click(function () {
+    var speed = 400;
+    var href = $(this).attr('href');
+    var target = $(href == '#' || href == '' ? 'html' : href);
+    var position = target.offset().top;
+    $('body,html').animate({
+      scrollTop: position
+    }, speed, 'swing');
+    return false;
+  });
+  //toggle開閉
+  $('.openable-button').addClass('closed');
+  $('.openable-button').on('click', function () {
+    $(this).toggleClass('closed');
+    $(this).next().slideToggle(200);
+  });
+})(jQuery);
+</script>

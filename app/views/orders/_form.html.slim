@@ -1,0 +1,24 @@
+= form_for @order do |f|
+  - if @order.errors.any?
+    #error_explanation
+      p = prohibited_message(@order.errors)
+      ul.alert-danger
+        - @order.errors.full_messages.each do |message|
+          li = message
+
+  = f.fields_for :shipping_info do |s_info|
+    .field.form-group
+      = s_info.label :shipping_company
+      = s_info.collection_select :shipping_company_id, ShippingCompany.my_shipping_companies(current_company), :id, :shipping_company_name , class: 'form-control'
+
+    .field.form-group
+      = s_info.label :shipping_number
+      = s_info.number_field :shipping_number, class: 'form-control'
+
+    .field.form-group
+      = s_info.label :shipping_day
+      = s_info.date_select :shipping_day, class: 'form-control'
+
+  .actions
+    button.btn.btn-primary type='submit' 発送情報の更新
+

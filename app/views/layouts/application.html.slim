@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    title Be-Shop
+    meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"
+
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag params[:controller]
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    .container
+      nav.navbar.navbar-default
+        .navbar-header
+          button.navbar-toggle class='collapsed' type='button' data-toggle='collapse' data-target='#navbarEexample'
+            /! spanのicon-barはバーガーボタンの1本にあたります。
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          = link_to 'Be-Shop', root_path, class: 'navbar-brand'
+        .collapse class='navbar-collapse' id='navbarEexample'
+          - if company_signed_in?
+            ul.nav class='navbar-nav'
+              li = link_to 'プロフィール変更', edit_company_registration_path
+              li = link_to t('activerecord.models.business_hour'), new_business_hour_path
+              li = link_to t('activerecord.models.minimum_price'), new_minimum_price_path
+              li = link_to t('activerecord.models.paidy_info'), new_paidy_info_path
+              li = link_to t('activerecord.models.paypal_info'), new_paypal_info_path
+              li = link_to t('activerecord.models.line_pay_info'), new_line_pay_info_path
+              li = link_to t('activerecord.models.pay_pay_info'), new_pay_pay_info_path
+              li = link_to t('activerecord.models.cash_on_delivery_info'), new_cash_on_delivery_info_path
+              li = link_to t('activerecord.models.bank_transfer_info'), new_bank_transfer_info_path
+              /! li = link_to t('activerecord.models.line_auth_info'), new_line_auth_info_path
+              li = link_to t('activerecord.models.product'), products_path
+              li = link_to t('activerecord.models.shipping'), new_shipping_path
+              li = link_to t('activerecord.models.shipping_company'), shipping_companies_path
+              li = link_to t('activerecord.models.tag'), tags_path
+              li = link_to t('activerecord.models.order'), orders_path
+              li = link_to t('activerecord.models.extra_message'), new_extra_message_path
+              li = link_to t('activerecord.models.line_user'), line_users_path
+              - if OccupationMst.is_reserve?(company: current_company)
+                li = link_to t('activerecord.models.company_reserve'), new_company_reserve_path
+              li = link_to 'ログアウト', destroy_company_session_path, method: :delete
+          - else
+            ul.nav class='navbar-nav'
+              li = link_to 'サインアップ', new_company_registration_path
+              li = link_to 'ログイン', new_company_session_path
+              /p.notice = notice
+              /p.alert = alert
+      - flash.each do | message_type, message |
+        p.alert class="alert-#{message_type}" = message
+      == yield

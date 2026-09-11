@@ -1,0 +1,20 @@
+= form_for @minimum_price, url: minimum_price_path do |f|
+
+  - if @minimum_price.errors.any?
+    #error_explanation
+      p = prohibited_message(@minimum_price.errors)
+
+      ul.alert-danger
+        - @minimum_price.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :price, t('activerecord.attributes.minimum_price.price')
+    = f.number_field :price, class: 'form-control'
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

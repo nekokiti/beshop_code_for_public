@@ -1,0 +1,28 @@
+= form_for @paidy_info, url: paidy_info_path do |f|
+
+  - if @paidy_info.errors.any?
+    #error_explanation
+      p = prohibited_message(@paidy_info.errors)
+
+      ul.alert-danger
+        - @paidy_info.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :public_key, t('activerecord.attributes.paidy_info.public_key')
+    = f.text_field :public_key, class: 'form-control'
+
+  .field.form-group
+    = f.label :secret_key, t('activerecord.attributes.paidy_info.secret_key')
+    = f.password_field :secret_key, class: 'form-control', value: "#{@paidy_info.secret_key}"
+
+  .field.form-group
+    = f.label :enable_flg, t('activerecord.attributes.paidy_info.enable_flg'), class: 'checkbox'
+    = f.check_box :enable_flg
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

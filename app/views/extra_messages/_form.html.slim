@@ -1,0 +1,23 @@
+= form_for @extra_message, url: extra_message_path do |f|
+
+  - if @extra_message.errors.any?
+    #error_explanation
+      p = prohibited_message(@extra_message.errors)
+
+      ul.alert-danger
+        - @extra_message.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :extra_message
+    = f.text_area :extra_message, size: "20x20", class: 'form-control'
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']
+
+= link_to 'テスト送信', send_test_mail_path, class: ['btn', 'btn-primary', 'mt-1']
+p = "(一度保存してからで無いと文面が反映されません)"

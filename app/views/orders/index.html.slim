@@ -1,0 +1,33 @@
+h1 =t('activerecord.models.order')
+
+= form_for @order_find_form, url: orders_path, html: {method: "get"} do |f|
+  .field.form-group
+    = f.label :created_at_from, "注文日時(00:00)から"
+    = f.date_select :created_at_from, {default: @from}, class: 'form-control'
+  .field.form-group
+    = f.label :created_at_to, "注文日時(23:59)まで"
+    = f.date_select :created_at_to, {default: @to}, class: 'form-control'
+  button.btn.btn-default type="submit" name="search" aria-label="Left Align"
+    span.glyphicon.glyphicon-search aria-hidden="true"
+    'Search
+  button.btn.btn-default.ml-1 type="submit" name="csv" aria-label="Left Align"
+    span.glyphicon.glyphicon-download aria-hidden="true"
+    'Csv
+
+.table-responsive
+  table.table
+    thead
+      tr
+        th ID
+        th 注文番号
+        th 日付
+
+    tbody
+      - @orders&.each do |order|
+        tr
+          td.v-middle = order.id
+          td.v-middle = order.txn_id
+          td.v-middle = order.updated_at
+          td = link_to '詳細', order, class: ['btn', 'btn-default']
+          td = link_to '削除', order, data: { confirm: '削除したデータは元に戻せません!!' }, method: :delete, class: ['btn', 'btn-danger']
+= paginate @orders

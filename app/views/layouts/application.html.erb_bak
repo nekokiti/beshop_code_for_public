@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TalkSearch</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <div class="container">
+				    <nav class="navbar-header">
+            <%= link_to 'TalkSearch', root_path, class: 'navbar-brand' %>
+            <% if company_signed_in? %>
+                <%= link_to 'プロフィール変更', edit_company_registration_path, class: 'btn btn-default navbar-btn' %>
+                <%= link_to 'ログアウト', destroy_company_session_path, method: :delete, class: 'btn btn-default navbar-btn' %>
+                <%= link_to 'Product Index', products_path, class: 'btn btn-default navbar-btn' %>
+                <%= link_to 'New Product', new_product_path, class: 'btn btn-default navbar-btn' %>
+                <%= link_to 'Tag Index', tags_path, class: 'btn btn-default navbar-btn' %>
+                <%= link_to 'New Tag', new_tag_path, class: 'btn btn-default navbar-btn' %>
+                <%= link_to 'User Keywords', user_keywords_path, class: 'btn btn-default navbar-btn' %>
+            <% else %>
+                    <%= link_to 'サインアップ', new_company_registration_path, class: 'btn btn-default navbar-btn' %>
+                    <%= link_to 'ログイン', new_company_session_path, class: 'btn btn-default navbar-btn' %>
+            <% end %>
+            </nav>
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+          <%= yield %>
+	    </div>
+  </body>
+</html>

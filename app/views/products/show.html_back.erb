@@ -1,0 +1,55 @@
+<h1>Products</h1>
+<p id="notice"><%= notice %></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Url</th>
+      <th>Image path</th>
+      <th>在庫</th>
+      <th>価格</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><%= @product.name %></td>
+        <td><%= @product.description %></td>
+        <td><%= @product.url %></td>
+        <td><%= @product.image_path %></td>
+        <td><%= @product.quantity %></td>
+        <td><%= @product.price %></td>
+      </tr>
+  </tbody>
+</table>
+
+<h2>Related Stickers</h2>
+	<% @product.sticons.each.with_index(1) do |sticon, index| %>
+		<% if index == 1 %>
+			<div class="row">
+		<% end %>
+		<img class="col-3" src='<%= asset_path "#{sticon.sticonpackage.sticoncategory.name}/sticon#{sticon.id}.jpg" %>'>
+		<% if index % 4 == 0 %>
+			</div>
+			<div class="row">
+		<% end %>
+  <% end %>
+
+<h2>Related Tags</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>tag</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @product.tags.each do |tag| %>
+        <tr>
+					<td><%= tag.tag_name %></td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

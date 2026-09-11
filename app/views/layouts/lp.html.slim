@@ -1,0 +1,35 @@
+doctype html
+html lang="ja"
+  head
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143670140-1"></script>
+    javascript:
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-143670140-1');
+    title BeSHOP：LINEのトーク画面にかんたんネットショップ開設
+    meta name="viewport" content="width=device-width, initial-scale=1.0" /
+    meta name="description" content="LINEのトーク画面にネットショップ開設！LINEで決済まで完結！チャットコマースならBeSHOP。BeSHOPは、LINE公式アカウント（LINE@）のトーク画面に、かんたんにネットショップを開設できるクラウドサービスです。" /
+
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    controller.controller_name, media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    javascript:
+      $(function() {
+        $('.jumbotron').bgSwitcher({
+          images: ['/lp/beshop_main01.png','lp/beshop_main02.png'], // 切り替え画像
+          Interval: 5000, //切り替えの間隔 1000=1秒
+          start: true, //$.fn.bgswitcher(config)をコールした時に切り替えを開始する
+          loop: true, //切り替えをループする
+          shuffle: false, //背景画像の順番をシャッフルする
+          effect: "fade", //エフェクトの種類 "fade" "blind" "clip" "slide" "drop" "hide"
+          duration: 1000, //エフェクトの時間 1000=1秒
+          easing: "swing", //エフェクトのイージング "swing" "linear"
+        });
+      });
+    == yield

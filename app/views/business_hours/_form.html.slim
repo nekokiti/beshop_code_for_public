@@ -1,0 +1,24 @@
+= form_for @business_hour, url: business_hour_path do |f|
+
+  - if @business_hour.errors.any?
+    #error_explanation
+      p = prohibited_message(@business_hour.errors)
+
+      ul.alert-danger
+        - @business_hour.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :open_time, t('activerecord.attributes.business_hour.open_time')
+    = f.time_select :open_time, prompt:true, ignore_data:true, class: 'form-control'
+
+  .field.form-group
+    = f.label :close_time, t('activerecord.attributes.business_hour.close_time')
+    = f.time_select :close_time, prompt:true, ignore_data:true, class: 'form-control'
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

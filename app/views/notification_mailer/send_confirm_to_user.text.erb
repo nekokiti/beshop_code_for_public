@@ -1,0 +1,43 @@
+<%=  "#{@user.last_name} #{@user.first_name}" %> 様
+
+<%= "#{@order.company.company_name}" %>で
+商品をご購入頂きありがとうございました。
+
+お客様のオーダー内容は以下の通りです。
+
+<% @order.order_products.each do |op| %>
+<% next if op.coupon_flg %>
+<%= "#{op.product_name}:#{op.product_price}円" %>
+<% end %>
+<%= "小計:#{sub_total(@order).to_s }円" %>
+<%= "(内消費税:#{@order.tax.to_s }円)" %>
+<% unless OccupationMst.is_reserve?(company: @order.company) %>
+<%= "送料:#{@order.mc_shipping.to_s }円" %>
+<%= "手数料:#{@order.mc_handling.to_s }円" %>
+<% end %>
+<% if @order.payment_method == Order::CASH_ON_DELIVERY %>
+<% display_name = @order.company.cash_on_delivery_info.alternative_name.blank? ?
+  "代引き" : @order.company.cash_on_delivery_info.alternative_name %>
+<%= "#{display_name}手数料:#{@order.cash_on_delivery_price}円" %>
+<% end %>
+<%= "合計:#{@order.total_price.to_s }円" %>
+<% if OccupationMst.is_reserve?(company: @order.company) %>
+<%= "お受け取り予定日:#{@order.reserve_detail.take_over_date}" %>
+<%= "お受け取り予定時刻:#{@order.reserve_detail.take_over_time_from&.strftime('%R')} ～ #{@order.reserve_detail.take_over_time_to&.strftime('%R')}" %>
+* 時刻の指定が無い場合は、営業時間内のお受け取りとなります。
+<% else %>
+<%= "内クーポン利用額:#{@order.discount.to_s }円" %>
+<% end %>
+
+本メールは確認用の自動送信メールですので
+直接このメールにご返信頂いても返信する事は出来ません。
+
+<% if OccupationMst.is_reserve?(company: @order.company) %>
+注文の取り消しや数量変更は該当店舗へお電話にてご連絡ください。
+<% else %>
+本オーダーに関するご質問は<%= "#{@order.company.email }" %>
+までご連絡頂くか、<%= "#{@order.company.company_name }" %>の公式ページから
+直接ご連絡頂きます様お願い致します。
+<% end %>
+
+<%= "#{@order.company.extra_message.try!(:extra_message) }" %>

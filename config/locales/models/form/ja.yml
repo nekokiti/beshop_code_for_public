@@ -1,0 +1,14 @@
+ja:
+  activemodel:
+    models:
+      form/lp_form: フォーム
+      form/push_with_product_form: 1対1送信
+    attributes:
+      form/lp_form:
+        name: お名前(法人名)*
+        email: メールアドレス*
+        tel: お電話(半角ハイフン無)
+        willing: ご希望
+        is_company: 区分(法人 or 個人)
+      form/push_with_product_form:
+        product_ids: 送りたい商品(最大10件まで同時に送れます)

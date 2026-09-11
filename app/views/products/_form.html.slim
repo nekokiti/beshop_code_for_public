@@ -1,0 +1,103 @@
+= form_for @product, html:{ class: "mb-1" } do |f|
+  - if @product.errors.any?
+    #error_explanation
+      / h2 = "#{pluralize(@product.errors.count, "error")} prohibited this product from being saved:"
+      p = prohibited_message(@product.errors)
+
+      ul.alert-danger
+        - @product.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+
+  .field.form-group
+    = f.label :coupon_flg, class: 'checkbox'
+    = f.check_box :coupon_flg
+
+  .field.form-group
+    = f.label :no_extra_fee, class: 'checkbox'
+    = f.check_box :no_extra_fee
+
+  .field.form-group
+    = f.label :jancode
+    = f.text_field :jancode, class: 'form-control'
+
+  .field.form-group
+    = f.label :description
+    = f.text_field :description, class: 'form-control'
+
+  .field.form-group
+    = f.label :url
+    = f.url_field :url, class: 'form-control'
+
+  .field.form-group
+    = f.label :image_path
+    = f.file_field :image_path
+
+  .field.form-group
+    = f.label :movie_path
+    = f.file_field :movie_path
+
+  .field.form-group
+    = f.label :price
+    = f.number_field :price, class: 'form-control'
+
+  #reduction_tax.field.form-group
+    = f.label :reduction_tax, class: 'checkbox'
+    = f.check_box :reduction_tax
+
+  #tax_free_flg.field.form-group
+    = f.label :tax_free_flg, class: 'checkbox'
+    = f.check_box :tax_free_flg
+
+  .field.form-group
+    = f.label :quantity
+    = f.number_field :quantity, class: 'form-control'
+
+  .field.form-group
+    = f.label :disp_inventory_flg, class: 'checkbox'
+    = f.check_box :disp_inventory_flg
+
+  /.field
+    /= f.label :sticons
+  /br
+    /= collection_check_boxes(:product, :sticon_ids, Sticon.all, :id, :img_path) do |b|
+      /= b.label(class: "checkbox-inline") {b.check_box}
+      /img src = "#{asset_path b.text}"
+
+  .field.form-group
+    = f.label :recommend_flg, class: 'checkbox'
+    = f.check_box :recommend_flg
+
+  /.field.form-group
+    /= f.label :otorioki_flg, class: 'checkbox'
+    /= f.check_box :otorioki_flg
+
+  /.field.form-group
+    /= f.fields_for :otorioki_time do |ot|
+      /= ot.label :min_time
+      /= ot.number_field :min_time, class: 'form-control'
+
+  .field = f.label :tags
+  = collection_check_boxes(:product, :tag_ids, Tag.my_tags(current_company), :id, :tag_name) do |b|
+    .checkbox
+      = b.label(class: "checkbox-inline") {b.check_box + b.text}
+
+  #has_size.field.form-group
+    = f.label :has_size, class: 'checkbox'
+    = f.check_box :has_size
+
+  #size_products.field.form-group
+    = f.fields_for(:size_products) do |sq|
+      = sq.label :"#{size_name(sq.index)}"
+      = sq.number_field :quantity, class: 'form-control'
+      = sq.hidden_field :size_id, value: sq.index + 1
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type='submit' Update Product
+    - else
+      button.btn.btn-primary type='submit' Create Product
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

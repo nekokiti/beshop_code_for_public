@@ -1,0 +1,123 @@
+ja:
+  activerecord:
+    models:
+      extra_message: 購入確認メッセージ設定
+      minimum_price: 最低購入金額設定
+      business_hour: 営業時間設定
+      shipping: 配送/手数料
+      shipping_company: 配送業者
+      shipping_info: 発送情報
+      tag: タグ
+      order: オーダー
+      line_user: lineお友達一覧
+      product: 商品
+      paypal_info: PayPal支払い情報設定
+      line_pay_info: LinePay支払い情報設定
+      pay_pay_info: PayPay支払い情報設定
+      paidy_info: あと払い (ペイディ)情報設定
+      line_auth_info: LineAuth情報設定
+      cash_on_delivery_info: 代引き支払情報設定
+      bank_transfer_info: 銀行振り込み設定
+      company_reserve: 予約時間設定
+      cart:
+        exist_same_product: その商品は既にカート内に存在しています。
+        mix_in_error_with_take_over: |-
+          テイクアウト用の商品と一般商品を同時に購入する事は出来ません。
+          お手数ですが別々に購入を完了して頂きます様、お願い致します。
+        add_cart: 商品をカートに追加しました
+        change_quantity: 商品の数量を変更しました
+    attributes:
+      extra_message:
+        extra_message: 購入後メッセージに追加したい文言を入力して下さい。 
+      tag:
+        url: リンク先URL(設定するとこのカテゴリをタップ時に外部のurlに遷移します)
+      minimum_price:
+        price: 最低購入金額(税抜)
+      business_hour:
+        open_time: 受付開始時刻
+        close_time: 受付完了時刻
+      company:
+        email: Eメール
+        password: パスワード
+        company_name: 会社名
+        channel_secret: LineMessagingApiのsecretキー
+        channel_access_token: LineMessagingApiのアクセストークン
+        current_password: 現在のパスワード
+      shipping_info:
+        shipping_company: 配送業者
+        shipping_number: 送り状番号
+        shipping_day: お届け予定日
+      shipping_company:
+         shipping_company_name: 配送業者名
+      shipping:
+        shipping_fee: 配送料金
+        extra_fee: 手数料
+      order:
+        id: ID
+        created_at: 登録日時
+        updated_at: 更新日時
+      paypal_info: &enable_flg
+        enable_flg: 支払い方法を有効/無効
+      line_auth_info:
+        channel_id: channel_id
+        channel_secret: channel_secret
+      line_pay_info:
+        channel_id: channel_id
+        channel_secret: channel_secret
+        <<: *enable_flg
+      paidy_info:
+        public_key: public_key
+        secret_key: secret_key
+        <<: *enable_flg
+      pay_pay_info:
+        client_id: client_id
+        client_secret: client_secret
+        merchant_id: merchant_id
+        <<: *enable_flg
+      cash_on_delivery_info:
+        price: 代引き手数料
+        alternative_name: 代替名(「代引き」以外の名称を使いたい場合)
+        <<: *enable_flg
+      bank_transfer_info:
+        <<: *enable_flg
+      otorioki_time:
+        min_time: 店舗受け取りの場合、注文後、最短何分後に受け取り可能かを数字で入力してください。
+      product:
+        name: 名前*
+        jancode: 製品コード
+        description: 商品説明文*
+        price: 価格(税抜)*
+        reduction_tax: 軽減消費税率(8%)対象商品
+        tax_free_flg: 免税対象商品
+        quantity: 在庫数
+        no_extra_fee: 送料/手数料無料
+        disp_inventory_flg: 在庫数をテンプレートメッセージ内に表示する
+        tags: カテゴリ名
+        image_path: 商品画像*
+        movie_path: 商品動画
+        recommend_flg: オススメ商品
+        coupon_flg: クーポン券(チェックを入れるとクーポン券として扱われ、設定した価格はマイナスとして適用されます。)
+        otorioki_flg: 店舗受け取り対象商品
+        has_size:  |-
+          商品毎に個別サイズがある場合、以下にチェックを入れ、各在庫数を入力してください。
+          在庫数を入力してもチェックが無い場合、以下に入力した在庫数は無効となります。
+      company_reserve:
+        date: 引き取り日または受け取り可能日
+      reserve_time_as:
+        start_date: 開始日
+        end_date: 終了日
+        from_time_1: 開始時間
+        end_time_1: 終了時間
+        date: 開始日
+        time1: 開始時間
+        time2: 開始時間と終了時間
+      reserve_time_b:
+        days_after_from: 開始日
+        days_after_to: 終了日
+        from_time_1: 開始時間
+        end_time_1: 終了時間
+        date: 開始日
+        time1: 開始時間
+        time2: 開始時間と終了時間
+    errors:
+      empty: 'を入力してください'

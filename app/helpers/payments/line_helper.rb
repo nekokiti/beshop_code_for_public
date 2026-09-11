@@ -1,0 +1,2 @@
+module Payments::LineHelper
+end

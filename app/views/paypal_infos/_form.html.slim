@@ -1,0 +1,36 @@
+= form_for @paypal_info, url: paypal_info_path do |f|
+
+  - if @paypal_info.errors.any?
+    #error_explanation
+      p = prohibited_message(@paypal_info.errors)
+
+      ul.alert-danger
+        - @paypal_info.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :paypal_credential_username
+    = f.text_field :paypal_credential_username, class: 'form-control'
+
+  .field.form-group
+    = f.label :paypal_credential_password
+    = f.text_field :paypal_credential_password, class: 'form-control'
+
+  .field.form-group
+    = f.label :email_id
+    = f.text_field :email_id, class: 'form-control'
+
+  .field.form-group
+    = f.label :paypal_credential_signature
+    = f.text_field :paypal_credential_signature, class: 'form-control'
+
+  .field.form-group
+    = f.label :enable_flg, t('activerecord.attributes.paypal_info.enable_flg'), class: 'checkbox'
+    = f.check_box :enable_flg
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

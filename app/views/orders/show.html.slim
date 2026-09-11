@@ -1,0 +1,91 @@
+h1 オーダー情報
+h2 顧客情報
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th LINEのお名前
+        th 登録のお名前
+        - unless OccupationMst.is_hotel?(company: @order.company)
+          th 住所
+        th 電話
+        th Email
+        - if OccupationMst.is_hotel?(company: @order.company)
+          th 部屋番号
+        - if OccupationMst.is_reserve?(company: @order.company)
+          th 引取り予定日
+          th 引取り予定時間
+        - if @order.payment_method == Order::CASH_ON_DELIVERY || @order.payment_method == Order::BANK_TRANSFER
+          th 決済手段
+    tbody
+      tr
+        td = @order.line_user.displayName
+        td = full_name @order
+        - unless OccupationMst.is_hotel?(company: @order.company)
+          td = address @order
+        td = @order.line_user.tel
+        td = @order.line_user.email
+        - if OccupationMst.is_hotel?(company: @order.company)
+          td = @order.room_number
+        - if OccupationMst.is_reserve?(company: @order.company)
+          td = @order.reserve_detail.take_over_date
+          td = "#{@order.reserve_detail.take_over_time_from&.in_time_zone('Tokyo')&.strftime('%R')}～#{@order.reserve_detail.take_over_time_to&.in_time_zone('Tokyo')&.strftime('%R')}"
+        - if @order.payment_method == Order::CASH_ON_DELIVERY || @order.payment_method == Order::BANK_TRANSFER
+          td = @order.display_name
+
+- unless OccupationMst.is_reserve?(company: @order.company)
+  h2 配送情報
+  == render 'form', product: @order
+
+h2 購入情報
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th 商品名
+        th サイズ
+        th 価格
+        th 個数
+    tbody
+      - @order.order_products.each do |op|
+        - unless op.coupon_flg
+          tr
+            td = op.product_name
+            - if op.size
+              td = op.size_name
+            - else
+              td = "-"
+            td = "#{op.product_price}円"
+            td = "#{op.quantity}個"
+
+      tr
+        td 小計
+        td = ""
+        td{colspan=2} = sub_total(@order).to_s + " 円"
+      tr
+        td 内消費税額
+        td = ""
+        td{colspan=2} = (@order.tax.to_s + " 円")
+      tr
+        td 送料
+        td = ""
+        td{colspan=2} = (@order.mc_shipping.to_s + " 円")
+      tr
+        td 手数料
+        td = ""
+        td{colspan=2} = (@order.mc_handling.to_s + " 円")
+      - if @order.payment_method == Order::CASH_ON_DELIVERY
+        tr
+          td 代引き手数料
+          td = ""
+          td{colspan=2} = (@order.cash_on_delivery_price.to_s + " 円")
+      tr
+        td 合計(税込み価格)
+        td = ""
+        td{colspan=2} = (@order.total_price.to_s + " 円")
+      tr
+        td 内クーポン利用額等
+        td = ""
+        td{colspan=2} = (@order.discount.to_s + " 円")
+
+= link_to 'Back', orders_path, class: ['btn', 'btn-default', 'mb-1']

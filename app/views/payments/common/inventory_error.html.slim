@@ -1,0 +1,17 @@
+h1 在庫の不足している商品が有ります。
+p.label-info 以下の商品で在庫切れが有ります。前の画面に戻り、購入数を調整して下さい。
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th 在庫切れ商品
+        th (サイズ)
+        th 在庫数
+        th カートに入っている数
+    tbody
+    - @out_of_inventory.each do |cart_product|
+      tr
+        td = cart_product.product.name
+        td = cart_product.product.size_name.nil? ? "" : cart_product.product.size_name
+        td = cart_product.product.size_name.nil? ? cart_product.product.quantity : quantity_with_size(cart_product)
+        td = cart_product.quantity

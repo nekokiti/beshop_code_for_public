@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>UserKeywords</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Keyword</th>
+      <th>Counts</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_keywords.each do |user_keyword| %>
+      <tr>
+        <td><%= user_keyword.keyword %></td>
+        <td><%= user_keyword.counts %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @user_keywords %>

@@ -1,0 +1,84 @@
+h2 Edit = resource_name.to_s.humanize
+
+div.bg-info
+  p 以下のURLをコピーしてLineDevelopers(MessagingApi)管理画面にてWebhookURLの欄へ入力をお願い致します。
+  p
+    strong = webhook_url(resource.unique_id)
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = devise_error_messages!
+
+  .form-group
+    = f.label :company_name
+    br
+    = f.text_field :company_name, autofocus: true
+
+  .form-group
+    = f.label :email
+    br
+    = f.email_field :email, autofocus: true
+
+  .form-group
+    = f.label :channel_secret
+    br
+    = f.text_field :channel_secret, autofocus: true
+
+  .form-group
+    = f.label :channel_access_token
+    br
+    = f.text_field :channel_access_token, autofocus: true
+
+  / f.fields_for :paypal_info, resource.paypal_info ||= resource.build_paypal_info do |info|
+    .field
+      = info.label :paypal_credential_username
+      br
+      = info.text_field :paypal_credential_username
+
+  /  .field
+      = info.label :paypal_credential_password
+      br
+      = info.text_field :paypal_credential_password
+
+  /  .field
+      = info.label :email_id ,"email(paypal)"
+      br
+      = info.text_field :email_id
+
+  /  .field
+      = info.label :paypal_credential_signature
+      br
+      = info.text_field :paypal_credential_signature
+
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    Currently waiting confirmation for: = resource.unconfirmed_email
+
+  .form-group
+    = f.label :password
+    i
+      | (変更する必要が無い場合は空白のままにしてください)
+    br
+    = f.password_field :password, autocomplete: "off"
+    - if @minimum_password_length
+      br
+      em = "#{@minimum_password_length} characters minimum"
+
+  .form-group
+    = f.label :password_confirmation
+	  br
+    = f.password_field :password_confirmation, autocomplete: "off"
+
+  .form-group
+    = f.label :current_password
+    i
+      | (情報を更新する為に現在のパスワードを入力して下さい)
+	  br
+    = f.password_field :current_password, autocomplete: "off"
+
+  = f.button "更新", class: ["btn", "btn-block"]
+
+h3 Cancel my account
+
+p Unhappy?
+= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+
+= link_to "Back", :back

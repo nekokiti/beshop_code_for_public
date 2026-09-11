@@ -1,0 +1,13 @@
+h1 配送業者
+.table-responsive
+	table.table
+	  thead
+	    tr
+	      th scope='col' Name
+	  tbody
+	    tr
+	      td scope='row' = @shipping_company.shipping_company_name
+
+.mt-1
+  = link_to 'Edit', edit_tag_path(@shipping_company), class: ['btn', 'btn-primary']
+  = link_to 'Back', tags_path, class: ['btn', 'btn-default', 'ml-1']

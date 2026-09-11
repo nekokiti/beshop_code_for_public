@@ -1,0 +1,24 @@
+= form_for @line_auth_info, url: line_auth_info_path do |f|
+
+  - if @line_auth_info.errors.any?
+    #error_explanation
+      p = prohibited_message(@line_auth_info.errors)
+
+      ul.alert-danger
+        - @line_auth_info.errors.full_messages.each do |message|
+          li = message
+
+  .field.form-group
+    = f.label :channel_id, t('activerecord.attributes.line_auth_info.channel_id')
+    = f.text_field :channel_id, class: 'form-control'
+
+  .field.form-group
+    = f.label :channel_secret, t('activerecord.attributes.line_auth_info.channel_secret')
+    = f.text_field :channel_secret, class: 'form-control'
+
+  .actions
+    - if controller.action_name == 'edit'
+      button.btn.btn-primary type="submit" Update
+    - else
+      button.btn.btn-primary type="submit" Create
+    = link_to 'Back', products_path, class: ['btn', 'btn-default', 'ml-1']

@@ -1,0 +1,23 @@
+p#notice = notice
+
+h1 Lineお友達
+/! div.bg-info
+  /! p 初めて送信するユーザーには初めに以下のリンクを送付してください。承認後以下の欄に表示されます。
+  /! p
+    strong = omniauth_line_require_url(current_company.unique_id)
+
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th Lineのお名前
+        th colspan=2
+            | ID
+    tbody
+      - @line_users.each do |line_user|
+        tr
+          td.v-middle = line_user.displayName
+          td.v-middle = line_user.line_id
+          /! td = product.company_id
+          /! td = link_to 'Show', line_user, class: ['btn', 'btn-default']
+= paginate @line_users

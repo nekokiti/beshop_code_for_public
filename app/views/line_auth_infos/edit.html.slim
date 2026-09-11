@@ -1,0 +1,6 @@
+h1 =t('activerecord.models.line_auth_info')
+div.bg-info
+  p 以下のURLをコピーしてLineDevelopers(Lineログイン)管理画面にてWebhookURLの欄へ入力をお願い致します。
+  p
+    strong = omniauth_get_auth_code_url(current_company.unique_id)
+== render 'form', line_auth_info: @line_auth_info

@@ -1,0 +1,50 @@
+ja:
+  webhook_utility:
+    more: '次へ'
+    show_other_products: '他の商品を見る'
+    show_web_url: '商品詳細を確認'
+    remove: 'カートから除外'
+    change_quantity: '数量を変更'
+    select_quantity: '数量を選択して下さい。(追加ではなく数量が選択した個数で置き換わります)'
+    go_register: '購入手続きへ進む'
+    buy_complete: '購入を確定する'
+    add_cart: 'カートに追加'
+    show_movie: '商品詳細動画を見る'
+    ask_for_email: 'メールアドレスを送信して下さい'
+    ask_for_email_or_blank: 'メールでのご案内が必要な方はメールアドレスを送信してください。不要な方は「不要」とご入力ください。'
+    ask_for_email_revised: 'メールアドレスを修正しました'
+    ask_for_tel: '電話番号を送信して下さい'
+    ask_for_tel_revised: '電話番号を修正しました'
+    ask_last_name: '名字を送信して下さい'
+    last_name_revised: '名字を修正しました'
+    ask_first_name: '名前を送信して下さい'
+    first_name_revised: '名前を修正しました'
+    ask_zip_code: '郵便番号を送信して下さい。'
+    ask_using_zip_code_for_address: '郵便番号を設定しました。住所を郵便番号から自動で設定しますか？自動で設定しない場合は手動で入力を行います。'
+    ask_using_zip_code_for_address_update: '郵便番号を更新しました。新しい郵便番号で住所を自動更新しますか？(住所を手動で修正する、もしくは修正しない場合は「しない」を選択してください。)'
+    response_of_setaddress_with_zip: '郵便番号から住所を設定しました。'
+    response_after_set_zip: '郵便番号を更新しました。'
+    ask_address_state: '都道府県名を送信して下さい。'
+    address_state_revised: '都道府県を修正しました。'
+    ask_address_city: '市町村区名を送信して下さい。'
+    address_city_revised: '市町村区名を修正しました。'
+    ask_address_street: '丁番地、及びマンション名並びに部屋番号等を送信して下さい。'
+    address_street_revised: '丁番地、及びマンション名並びに部屋番号等を修正しました。'
+    ask_room_number: '部屋番号を送信して下さい。'
+    room_number_revised: '部屋番号を修正しました。'
+    choise_the_item_to_revise: '修正したい項目を選んで下さい'
+    choise_the_paying_way: '支払い方法を選択して下さい'
+    choise_using_address: 'どちらのシステムの住所を利用しますか?'
+    cash_on_delivery: '各種手数料をご確認頂き、宜しければ確定ボタンを押してください。'
+    bank_transfer: '別途振り込み手数料等が発生致します。宜しければ確定ボタンを押してください。'
+    show_cart_products: |-
+      カートには次の商品が入っています。
+      以下ボタンから購入手続きへお進み下さい。
+      商品を削除する場合は「カートから除外」を押下してください。
+    datetime_receipt: 引取り日時を指定してください。
+    datetime_available: 受け取り日時設定
+    date_receipt: 引き取り日選択
+    date_available: 受け取り日選択
+    time_receipt: 引き取り時間選択
+    time_available: 受け取り時間選択
+    confirm_actions_for_reserve_complete: 'ご注文を確定して宜しいですか?'

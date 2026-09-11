@@ -1,0 +1,4 @@
+paypal_api:
+  ipn_url: 'https://ipnpb.paypal.com/cgi-bin/webscr?cmd=_notify-validate'
+line_pay_api:
+  end_point: 'https://sandbox-api-pay.line.me'

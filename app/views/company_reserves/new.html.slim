@@ -1,0 +1,75 @@
+h1 引き取り日時設定
+= form_for @company_reserve, url: company_reserve_path, html: {id: 'company_reserve_form', method: :post} do |f|
+  - if @company_reserve.errors.any?
+    #error_explanation.row
+      ul.alert-danger
+        - @company_reserve.errors.full_messages.each do |message|
+          li = message
+  .col-md-12.radio
+    = f.radio_button :enable_flg, 1, class: 'radio company_reserve'
+    = f.label :enable_flg_1, '引き取り日時', class: 'form-check-input'
+  = f.fields_for :reserve_time_as do |ff|
+    .col-md-12.form.form-group.reserve_a
+      h4.row.form-group = "引き取り日 #{ff.index + 1}"
+      .row.col-md-7
+        .row.form-group
+          .row.col-md-5
+            = ff.text_field :start_date, class: 'datepicker form-control', autocomplete: "off"
+          h5.col-md-2.text-center 〜
+          .row.col-md-5
+            = ff.text_field :end_date, class: 'datepicker form-control', autocomplete: "off"
+      .row.col-md-4
+        .row.form-group
+          .row.col-md-5
+            = ff.text_field :from_time_1, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.from_time_1.nil? ? '' : ff.object.from_time_1.strftime("%H")
+          h5.col-md-2.text-center 〜
+          .row.col-md-5
+            = ff.text_field :end_time_1, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.end_time_1.nil? ? '' : ff.object.end_time_1.strftime("%H")
+        .row.form-group
+          .row.col-md-5
+            = ff.text_field :from_time_2, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.from_time_2.nil? ? '' : ff.object.from_time_2.strftime("%H")
+          h5.col-md-2.text-center 〜
+          .row.col-md-5
+            = ff.text_field :end_time_2, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.end_time_2.nil? ? '' : ff.object.end_time_2.strftime("%H")
+      - unless ff.object.new_record?
+        .row.col-md-1
+          label.checkbox
+            = ff.check_box :_destroy
+            span 削除
+  .col-md-12.radio
+    = f.radio_button :enable_flg, 2, class: 'radio company_reserve'
+    = f.label :enable_flg_2, '受け取り可能日', class: 'form-check-input'
+  = f.fields_for :reserve_time_b do |ff|
+    .col-md-12.form.form-group.reserve_b
+      .row.col-md-7
+        .row.form-group.flex-center
+          p 注文日の
+          .col-md-2
+            = ff.number_field :days_after_from, class: 'form-control', autocomplete: "off"
+          p 日後 〜
+          .col-md-2
+            = ff.number_field :days_after_to, class: 'form-control', autocomplete: "off"
+          p 日後まで
+      .row.col-md-4
+        .row.form-group
+          .row.col-md-5
+            = ff.text_field :from_time_1, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.from_time_1.nil? ? '' : ff.object.from_time_1.strftime("%H")
+          h5.col-md-2.text-center 〜
+          .row.col-md-5
+            = ff.text_field :end_time_1, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.end_time_1.nil? ? '' : ff.object.end_time_1.strftime("%H")
+        .row.form-group
+          .row.col-md-5
+            = ff.text_field :from_time_2, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.from_time_2.nil? ? '' : ff.object.from_time_2.strftime("%H")
+          h5.col-md-2.text-center 〜
+          .row.col-md-5
+            = ff.text_field :end_time_2, class: 'timepicker form-control', autocomplete: "off", \
+              value: ff.object.end_time_2.nil? ? '' : ff.object.end_time_2.strftime("%H")
+  button.btn.btn-primary type="submit" 設定
+  = link_to 'キャンセル', new_company_reserve_path, class: 'btn btn-default ml-1'

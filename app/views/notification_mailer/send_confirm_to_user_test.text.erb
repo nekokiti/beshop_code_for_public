@@ -1,0 +1,35 @@
+テスト 太郎 様
+
+<%= "#{@company.company_name}" %>で
+商品をご購入頂きありがとうございました。
+
+お客様のオーダー内容は以下の通りです。
+
+テスト商品:○○円
+小計:○○円
+(内消費税:○○円)
+<% unless OccupationMst.is_reserve?(company: @company) %>
+送料:○○円
+手数料:○○円
+<% end %>
+合計:○○円
+<% if OccupationMst.is_reserve?(company: @company) %>
+お受け取り予定日:2000-00-00
+お受け取り予定時刻:09:00 ～ 21:00
+* 時刻の指定が無い場合は、営業時間内のお受け取りとなります。
+<% else %>
+内クーポン利用額:○○円
+<% end %>
+
+本メールは確認用の自動送信メールですので
+直接このメールにご返信頂いても返信する事は出来ません。
+
+<% if OccupationMst.is_reserve?(company: @company) %>
+注文の取り消しや数量変更は該当店舗へお電話にてご連絡ください。
+<% else %>
+本オーダーに関するご質問は<%= "#{@company.email }" %>
+までご連絡頂くか、<%= "#{@company.company_name }" %>の公式ページから
+直接ご連絡頂きます様お願い致します。
+<% end %>
+
+<%= "#{@company.extra_message.try!(:extra_message) }" %>

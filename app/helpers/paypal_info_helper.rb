@@ -1,0 +1,2 @@
+module PaypalInfoHelper
+end

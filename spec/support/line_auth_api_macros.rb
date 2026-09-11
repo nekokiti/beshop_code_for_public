@@ -1,0 +1,2 @@
+module LineAuthApiMacros
+end
